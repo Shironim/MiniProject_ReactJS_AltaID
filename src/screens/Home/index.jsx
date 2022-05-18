@@ -1,137 +1,75 @@
-import { Col, Container, Row, Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import NavPlayer from "../../components/NavPlayer";
-import CardMusic from "../../components/CardMusic";
-import NavBar from "../../components/NavBar";
-import MusicPlayer from "../../components/MusicPlayer";
-import Image from "react-bootstrap/Image";
+import { useState } from "react";
+import { Col, Container, Row, Image } from "react-bootstrap";
 import style from "./style.module.css";
+import NavBar from "../../components/NavBar";
+import Loading from "../../components/Loading";
+import Music from "../../components/Music";
+// Apollo Client
+import { useQuery } from '@apollo/client';
+// Query
+import { GET_MUSIK } from '../../GrapQL/Musik/queries';
 
 const Home = () => {
-  const now = 40;
+  const { data, loading } = useQuery(GET_MUSIK);
+  const [statePlaylistOrMusic, setStatePlaylist] = useState(false);
+
   return (
-    <Container fluid >
+    loading ? <Loading /> : <Container fluid>
       <Row style={{ height: "100vh" }}>
-        <Col style={{ height: "100vh", overflow: "auto", borderRight: "2px solid rgb(205, 192, 192)" }} xl={2} md={2} sm={2} xs={2}>
-          <div className='mt-2'>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              {/* <Button variant="outline-success">Search</Button> */}
-            </Form>
-            <div className="mt-4">
-              <div className={style.songs}>
-                <div className="d-flex flex-row p-3">
-                  <Image
-                    src={'https://github.com/mshaaban0.png'}
-                    rounded
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="ps-2 d-flex flex-column align-self-center">
-                    <p className="m-0 fs-5"><b>Diam</b></p>
-                    <p>Payung Teduh</p>
-                  </div>
-                </div>
+        <Col xl={3} md={3} sm={3} xs={3}>
+          <div
+            className={style.sidebar}
+            style={{ height: "100vh", overflow: "auto", padding: "0 16px", paddingTop: "1.5rem" }}
+          >
+            <div className='d-flex justify-content-between'>
+              <div className={style.state} onClick={() => setStatePlaylist(!statePlaylistOrMusic)}>
+                {statePlaylistOrMusic ? <b>Playlist</b> : <span>Playlist</span>}
               </div>
-              <div className={style.songs}>
-                <div className="d-flex flex-row p-3">
-                  <Image
-                    src={'https://github.com/mshaaban0.png'}
-                    rounded
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="ps-2 d-flex flex-column align-self-center">
-                    <p className="m-0 fs-5"><b>Diam</b></p>
-                    <p>Payung Teduh</p>
-                  </div>
-                </div>
+              <div className={style.state} onClick={() => setStatePlaylist(!statePlaylistOrMusic)} >
+                {statePlaylistOrMusic ? <span>Music</span> : <b>Music</b>}
               </div>
-              <div className={style.songs}>
-                <div className="d-flex flex-row p-3">
-                  <Image
-                    src={'https://github.com/mshaaban0.png'}
-                    rounded
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="ps-2 d-flex flex-column align-self-center">
-                    <p className="m-0 fs-5"><b>Diam</b></p>
-                    <p>Payung Teduh</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.songs}>
-                <div className="d-flex flex-row p-3">
-                  <Image
-                    src={'https://github.com/mshaaban0.png'}
-                    rounded
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="ps-2 d-flex flex-column align-self-center">
-                    <p className="m-0 fs-5"><b>Diam</b></p>
-                    <p>Payung Teduh</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.songs}>
-                <div className="d-flex flex-row p-3">
-                  <Image
-                    src={'https://github.com/mshaaban0.png'}
-                    rounded
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="ps-2 d-flex flex-column align-self-center">
-                    <p className="m-0 fs-5"><b>Diam</b></p>
-                    <p>Payung Teduh</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.songs}>
-                <div className="d-flex flex-row p-3">
-                  <Image
-                    src={'https://github.com/mshaaban0.png'}
-                    rounded
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="ps-2 d-flex flex-column align-self-center">
-                    <p className="m-0 fs-5"><b>Diam</b></p>
-                    <p>Payung Teduh</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.songs}>
-                <div className="d-flex flex-row p-3">
-                  <Image
-                    src={'https://github.com/mshaaban0.png'}
-                    rounded
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="ps-2 d-flex flex-column align-self-center">
-                    <p className="m-0 fs-5"><b>Diam</b></p>
-                    <p>Payung Teduh</p>
-                  </div>
-                </div>
+            </div >
+            <div className='mt-2'>
+              <div className="mt-4">
+                {
+                  data.mymusik_musik.map((musik, musikIdx) => (
+                    <div key={musikIdx} className={style.songs}>
+                      <div className="d-flex flex-row p-3">
+                        <Image
+                          src={musik.cover}
+                          rounded
+                          style={{ width: "100px", height: "100px" }}
+                        />
+                        <div className="ps-2 d-flex flex-column align-self-center">
+                          <p className="m-0 fs-6"><b>{musik.artist}</b></p>
+                          <p>{musik.judul}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
               </div>
             </div>
-          </div>
+          </div >
         </Col>
         <Col
-          xl={10}
-          md={10}
-          sm={10}
-          xs={10}>
+          xl={9}
+          md={9}
+          sm={9}
+          xs={9}>
           <NavBar />
           <div
             className='d-flex flex-column justify-content-center align-items-center'
           >
-            <CardMusic />
-            <MusicPlayer />
+            <Music
+              songs={data.mymusik_musik}
+            />
+
           </div>
+
         </Col>
       </Row >
-    </Container >
+    </ Container>
   )
 }
 
