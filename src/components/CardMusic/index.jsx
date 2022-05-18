@@ -16,7 +16,7 @@ const CardMusic = ({ currentSong, songs }) => {
       />
       <div className='text-center mt-2'>
         <p className='fs-3 fw-bold mb-0'>{currentSong.artist}</p>
-        <p className='fs-6'>{currentSong.name}</p>
+        <p className='fs-6'>{currentSong.judul}</p>
       </div>
     </div >
 

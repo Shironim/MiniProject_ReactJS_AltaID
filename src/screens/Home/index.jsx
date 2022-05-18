@@ -22,11 +22,8 @@ const Home = () => {
             style={{ height: "100vh", overflow: "auto", padding: "0 16px", paddingTop: "1.5rem" }}
           >
             <div className='d-flex justify-content-between'>
-              <div className={style.state} onClick={() => setStatePlaylist(!statePlaylistOrMusic)}>
-                {statePlaylistOrMusic ? <b>Playlist</b> : <span>Playlist</span>}
-              </div>
-              <div className={style.state} onClick={() => setStatePlaylist(!statePlaylistOrMusic)} >
-                {statePlaylistOrMusic ? <span>Music</span> : <b>Music</b>}
+              <div className="fs-4">
+                List Musik
               </div>
             </div >
             <div className='mt-2'>
