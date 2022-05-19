@@ -1,18 +1,30 @@
 import { useState } from "react";
-import { Col, Container, Row, Image } from "react-bootstrap";
+import { Col, Container, Row, Image, Form, FormControl } from "react-bootstrap";
 import style from "./style.module.css";
 import NavBar from "../../components/NavBar";
 import Loading from "../../components/Loading";
-import Music from "../../components/Music";
+import Music from "../../components/MusicBox";
 // Apollo Client
 import { useQuery } from '@apollo/client';
 // Query
 import { GET_MUSIK } from '../../GrapQL/Musik/queries';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from "../../store/isLogin";
+
 const Home = () => {
   const { data, loading } = useQuery(GET_MUSIK);
-  const [statePlaylistOrMusic, setStatePlaylist] = useState(false);
+  const [isPlaylist, setIsPlaylist] = useState(false);
+  const [isMusik, setIsMusik] = useState(true);
+  const isLogin = useSelector((state) => state.login.isLogin);
+  const dataUser = useSelector((state) => state.user.dataUser);
+  // console.log('ini diluar handle', isPlaylist);
+  console.log('ini user', dataUser);
+  const handlePlaylist = () => {
 
+    setIsPlaylist(!isPlaylist);
+    setIsMusik(!isMusik);
+  }
   return (
     loading ? <Loading /> : <Container fluid>
       <Row style={{ height: "100vh" }}>
@@ -24,9 +36,32 @@ const Home = () => {
             <div className='d-flex justify-content-between'>
               <div className="fs-4">
                 List Musik
+                <ul className="fs-6">
+                  <li><s>user /admin info login == redux persist</s></li>
+                  <li>liat daftar playlist + daftar lagu</li>
+                  <li>search by playlist + lagu</li>
+                  <li>make playlist (nama + gambar) / delete (db) per user</li>
+                  <li>add / delete musik to playlist per user</li>
+                  <li>Admin sistem</li>
+                  <li>tambah / update / delete lagu</li>
+                  <li>liat jumlah user + playlist yang dibuat</li>
+                  <li>hapus user</li>
+                </ul>
               </div>
             </div >
             <div className='mt-2'>
+              <div className="d-flex justify-content-between">
+                <div onClick={() => handlePlaylist()}>{isPlaylist ? <b>Playlist</b> : "Playlist"}</div>
+                <div onClick={() => handlePlaylist()}>{isMusik ? <b>Musik</b> : "Musik"}</div>
+              </div>
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                />
+              </Form>
               <div className="mt-4">
                 {
                   data.mymusik_musik.map((musik, musikIdx) => (

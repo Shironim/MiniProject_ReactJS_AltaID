@@ -7,14 +7,21 @@ import { BrowserRouter } from 'react-router-dom';
 // Apollo Provider
 import { ApolloProvider } from '@apollo/client';
 import client from './apollo-client';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import { store, persistor } from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
     <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
     </React.StrictMode>
   </ApolloProvider>
 );

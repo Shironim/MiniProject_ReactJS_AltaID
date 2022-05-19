@@ -11,3 +11,16 @@ query MyQuery {
   }
 }
 `;
+export const GET_SUB_MUSIK = gql`
+subscription MySubscription {
+  mymusik_musik {
+    artist
+    audio
+    cover
+    id_musik
+    judul
+  }
+}
+`;
+
+

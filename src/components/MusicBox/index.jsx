@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import MusicPlayer from '../MusicPlayer';
 import CardMusic from '../CardMusic';
 
-const Music = ({ songs }) => {
+const MusicBox = ({ songs }) => {
   const audioRef = useRef(null);
   // const songs = useSelector((state) => (state.songs.songs));
   const [currentSong, setCurrentSong] = useState(songs[0]);
@@ -55,4 +55,4 @@ const Music = ({ songs }) => {
 }
 
 
-export default Music;
+export default MusicBox;
