@@ -1,6 +1,6 @@
-.songs:hover{
-  background-color: pink;
-}
+/* .songs:hover{
+  background-color: blue;
+} */
 .sidebar::-webkit-scrollbar {
   width:0.25rem;
 }
@@ -17,4 +17,8 @@
 
 .state{
   cursor: pointer;
+}
+.addToPlaylist{
+  cursor: pointer;
+  color: pink;
 }

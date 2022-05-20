@@ -9,12 +9,16 @@ const isLoginReducer = createSlice({
   initialState,
   reducers: {
     login: (state) => {
-      state.isLogin = !state.isLogin;
+      state.isLogin = true;
+      // console.log('ini state', state.isLogin);
+    },
+    logout: (state) => {
+      state.isLogin = false;
       // console.log('ini state', state.isLogin);
     },
   }
 });
 
-export const { login } = isLoginReducer.actions
+export const { login, logout } = isLoginReducer.actions
 
 export default isLoginReducer.reducer

@@ -1,11 +1,20 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Container, Navbar, Nav, Dropdown, Image, NavLink, NavItem } from "react-bootstrap"
-
+import { logout } from "../../store/isLogin";
+import { deleteDataUser } from "../../store/User";
+import { useNavigate } from 'react-router-dom';
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    dispatch(deleteDataUser());
+    dispatch(logout());
+    navigate('/login');
+  }
+
   const isLogin = useSelector((state) => state.login.isLogin);
   const dataUser = useSelector((state) => state.user.dataUser);
-  console.log(isLogin);
   return (
     <Navbar expand="lg">
       <Container fluid>
@@ -30,11 +39,16 @@ const NavBar = () => {
                   style={{ width: "50px", height: "50px" }}
                 />
               </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>
-                  <div>Logout</div>
-                </Dropdown.Item>
-              </Dropdown.Menu>
+              {
+                isLogin ?
+                  <Dropdown.Menu>
+                    <Dropdown.Item>
+                      <div onClick={handleLogout}>Logout</div>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                  :
+                  <></>
+              }
             </Dropdown>
           </Nav>
         </Navbar.Collapse>

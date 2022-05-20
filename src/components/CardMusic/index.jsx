@@ -3,7 +3,7 @@ import style from "./style.module.css";
 
 import { Image } from 'react-bootstrap';
 const CardMusic = ({ currentSong, songs }) => {
-  console.log(songs);
+  // console.log(songs);
   return (
     <div className='w-100 text-center' style={{
       minHeight: "40vh"

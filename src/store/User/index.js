@@ -20,6 +20,6 @@ const userReducer = createSlice({
   }
 });
 
-export const { simpanDataUser } = userReducer.actions
+export const { simpanDataUser, deleteDataUser } = userReducer.actions
 
 export default userReducer.reducer

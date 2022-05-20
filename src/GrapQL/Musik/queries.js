@@ -22,5 +22,17 @@ subscription MySubscription {
   }
 }
 `;
+export const GET_SEARCH_MUSIK = gql`
+query MyQuery($judul: String) {
+  mymusik_musik(where: {judul: {_ilike: $judul}}) {
+    judul
+    id_musik
+    cover
+    audio
+    artist
+  }
+}
+
+`;
 
 

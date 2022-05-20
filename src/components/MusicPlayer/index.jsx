@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBackwardStep, faForwardStep, faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
+import { faBackwardStep, faForwardStep, faPlay, faPause, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
 
 import styled from "styled-components";
 
 const MusicPlayer = ({ isPlaying, setIsPlaying, audioRef, songInfo, setSongInfo, currentSong, setCurrentSong, songs }) => {
 
   useEffect(() => {
-    console.log(currentSong);
+    // console.log(currentSong);
   }, [currentSong])
   // Event handlers
   const playSongHandler = () => {
